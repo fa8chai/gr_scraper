@@ -34,7 +34,7 @@ class GenerateReport:
             'base_link':self.base_link,
             'data':self.data,
         }
-        with open(f'{DIRECTORY}/{self.file_name}.json', 'w') as f:
+        with open(f'{self.file_name}.json', 'w') as f:
             json.dump(report, f)
         print('Done...')
 
@@ -84,7 +84,6 @@ class GoodreadsAPI:
                 book = self.get_book_info(link)
                 if book:
                     new_books.append(book)
-                    print('Success')
                 else:
                     print(None)
                 n+=1
@@ -102,20 +101,17 @@ class GoodreadsAPI:
         rating = self.get_rating()
         paperback = self.get_paperback()
         published = self.get_published()
-        if  title and author and description and rating and paperback and published:
-            book = {
-                'title':title,
-                'author':author,
-                'description':description,
-                'rating':rating,
-                'paperback':paperback,
-                'published':published,
-                'link':link
-            }
-            return book
-        else :
-            return None
-        
+        book = {
+            'title':title,
+            'author':author,
+            'description':description,
+            'rating':rating,
+            'paperback':paperback,
+            'published':published,
+            'link':link
+        }
+        return book
+       
         
 
     def get_published(self):
@@ -186,13 +182,13 @@ class GoodreadsAPI:
         time.sleep(7)
         
     def search_for(self,search_term):
-        b_btn = self.driver.find_element_by_xpath('/html/body/div[2]/div/header/div[3]/div/nav/ul/li[3]')
+        b_btn = self.driver.find_element_by_xpath('/html/body/div[2]/div/header/div[2]/div/nav/ul/li[3]')
         actions = ActionChains(self.driver)
         actions.move_to_element(b_btn)
         actions.click(b_btn)
         actions.perform()
         time.sleep(3)
-        ge_btn = self.driver.find_element_by_xpath('/html/body/div[2]/div/header/div[3]/div/nav/ul/li[3]/div/div/div/div/div/span/div/div/ul/li[4]')
+        ge_btn = self.driver.find_element_by_xpath('/html/body/div[2]/div/header/div[2]/div/nav/ul/li[3]/div/div/div/div/div/span/div/div/ul/li[4]')
         actions = ActionChains(self.driver)
         actions.move_to_element(ge_btn)
         actions.click(ge_btn)
